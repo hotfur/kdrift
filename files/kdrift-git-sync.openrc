@@ -1,0 +1,26 @@
+#!/sbin/openrc-run
+
+description="kdrift Periodic Git Kernel Source Sync Daemon"
+
+depend() {
+    need net
+    after logger
+}
+
+start_pre() {
+    checkpath -d -m 0755 /var/lib/kdrift
+}
+
+start() {
+    ebegin "Starting kdrift Git Sync Monitor"
+    start-stop-daemon --start --background --make-pidfile \
+        --pidfile /run/kdrift-git-sync.pid \
+        --exec /usr/local/bin/kdrift-git-sync-daemon
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping kdrift Git Sync Monitor"
+    start-stop-daemon --stop --pidfile /run/kdrift-git-sync.pid
+    eend $?
+}

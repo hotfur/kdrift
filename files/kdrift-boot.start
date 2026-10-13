@@ -1,0 +1,6 @@
+#!/bin/sh
+# /etc/local.d/kdrift-boot.start
+# OpenRC local service executed asynchronously on boot
+if [ -x /usr/local/bin/kdrift ]; then
+    /usr/local/bin/kdrift boot-check
+fi

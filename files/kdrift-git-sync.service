@@ -1,0 +1,7 @@
+[Unit]
+Description=Periodic Git Fetch & Kernel Reconciliation
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'cd /usr/src/linux && git fetch origin main && git merge --ff-only origin/main'
+ExecStartPost=/usr/local/bin/kdrift git-reconcile --kernel-dir /usr/src/linux --profile /etc/kernel/invariants.profile --min-commits 1 --min-age-seconds 3600

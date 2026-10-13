@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = linux-custom
+Target = nvidia-dkms
+
+[Action]
+Description = Reconciling and Staging Custom Kernel via kdrift...
+When = PostTransaction
+Exec = /usr/local/bin/kdrift reconcile --kernel-dir /usr/src/linux --profile /etc/kernel/invariants.profile

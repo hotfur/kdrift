@@ -1,0 +1,20 @@
+#!/sbin/openrc-run
+
+description="kdrift Implicit Graceful Kernel Promotion Hook (OpenRC)"
+
+depend() {
+    keyword -docker -lxc -vserver
+    after *
+}
+
+start() {
+    return 0
+}
+
+stop() {
+    ebegin "Executing kdrift implicit kernel promotion on shutdown..."
+    if [ -x /usr/bin/kdrift ]; then
+        /usr/local/bin/kdrift shutdown-hook
+    fi
+    eend $?
+}

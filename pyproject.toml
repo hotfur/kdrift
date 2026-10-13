@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kdrift"
+version = "3.1.0"
+description = "Declarative Linux Kernel Invariant Assertion & Trial Boot Reconciliation Engine"
+authors = [{ name = "Vuong Kha Sieu" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "kconfiglib>=14.1.0",
+    "textual>=0.40.0"
+]
+
+[project.scripts]
+kdrift-assert = "kdrift.cli:main"
+kdrift = "kdrift.drift:main"
+kdag = "kdrift.kdag:main"
+kdrift-toolchain = "kdrift.toolchain:interactive_configure"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["kdrift*"]

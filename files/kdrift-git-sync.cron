@@ -1,0 +1,22 @@
+#!/bin/sh
+# /etc/periodic/hourly/kdrift-git-sync (Alpine) or /etc/cron.hourly/kdrift-git-sync (Gentoo)
+# Automatically syncs git kernel source and triggers kdrift git-reconcile
+
+if [ -f /var/lib/kdrift/git-sync.env ]; then
+    . /var/lib/kdrift/git-sync.env
+fi
+
+KERNEL_DIR="${KERNEL_DIR:-/usr/src/linux}"
+PROFILE="${PROFILE:-/etc/kernel/invariants.profile}"
+MIN_COMMITS="${MIN_COMMITS:-1}"
+MIN_AGE="${MIN_AGE_SECONDS:-3600}"
+
+if [ -d "${KERNEL_DIR}/.git" ] && [ -x /usr/local/bin/kdrift ]; then
+    git -C "${KERNEL_DIR}" fetch origin main 2>/dev/null || true
+    git -C "${KERNEL_DIR}" merge --ff-only origin/main 2>/dev/null || true
+    /usr/local/bin/kdrift git-reconcile \
+        --kernel-dir "${KERNEL_DIR}" \
+        --profile "${PROFILE}" \
+        --min-commits "${MIN_COMMITS}" \
+        --min-age-seconds "${MIN_AGE}" >> /var/log/kdrift_git_sync.log 2>&1
+fi

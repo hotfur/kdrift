@@ -1,0 +1,5 @@
+#!/bin/bash
+COMMAND="$1"
+if [ "$COMMAND" = "add" ]; then
+    /usr/local/bin/kdrift reconcile --kernel-dir /usr/src/linux --profile /etc/kernel/invariants.profile
+fi

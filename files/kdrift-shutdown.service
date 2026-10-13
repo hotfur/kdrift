@@ -1,0 +1,12 @@
+[Unit]
+Description=kdrift Implicit Graceful Kernel Promotion Hook
+DefaultDependencies=no
+Before=shutdown.target reboot.target halt.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/kdrift shutdown-hook
+TimeoutStartSec=10s
+
+[Install]
+WantedBy=shutdown.target reboot.target halt.target

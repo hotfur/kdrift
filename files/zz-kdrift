@@ -1,0 +1,5 @@
+#!/bin/sh
+# Executed automatically by apt/dpkg when kernel headers/sources update
+if [ -d "/usr/src/linux" ]; then
+    /usr/local/bin/kdrift reconcile --kernel-dir /usr/src/linux --profile /etc/kernel/invariants.profile
+fi
