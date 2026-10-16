@@ -8,6 +8,11 @@
 > Because heuristic prototyping and dynamic scripting runtimes cannot guarantee ring-0 safety, this PoC is currently undergoing a complete ground-up rewrite into an audited, statically linked Rust daemon. See [`TODO.md`](TODO.md) for the production architecture specification.
 
 ---
+Test Video
+
+https://github.com/user-attachments/assets/f1199e3e-1e27-4ada-aab9-dc7b7f6bf447
+
+A candidate kernel compiled with a drifted `CONFIG_VIRTIO_BLK=n` invariant panics on rootfs mount on QEMU VM. The volatile one-shot GRUB token expires, and the kernel hardware/panic timer (`panic=3`) automatically resets the machine back into the verified stable without administrator intervention.
 
 ## 1. Ontological Architecture & Problem Definition
 
